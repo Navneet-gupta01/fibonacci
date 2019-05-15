@@ -25,7 +25,7 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate(100) == {:ok, 354_224_848_179_261_915_075}
   end
 
-  @tag :pending
+  # @tag :pending
   test "Fibnoacci.calculate/1 with list element should give the correct result" do
     assert Fibonacci.calculate([0, 1, 2]) == {:ok, [0, 1, 1]}
     assert Fibonacci.calculate([0, 3, 5]) == {:ok, [0, 2, 5]}
