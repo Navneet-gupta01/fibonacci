@@ -53,14 +53,14 @@ defmodule Fibonacci do
   @impl true
   def handle_call({:get, key}, _from, state) do
     IO.puts("=========handle_call/3 for key: #{key}")
-    IO.inspect(state)
+    # IO.inspect(state)
 
     case Map.get(state.series, key) do
       nil ->
         {val, x_series} = extend_series(key, state.series)
 
         IO.puts("After Series Extension calculate Value for key : #{key} is #{val}")
-        IO.inspect(x_series)
+        # IO.inspect(x_series)
 
         {_, new_history_count} =
           state.history_count
@@ -89,7 +89,7 @@ defmodule Fibonacci do
 
   @impl true
   def handle_call(:history, _from, %{history: history} = state),
-    do: {:reply, {:ok, history}, state}
+    do: {:reply, {:ok, Enum.reverse(history)}, state}
 
   def extend_series(0, already_calculated_series), do: {0, already_calculated_series}
   def extend_series(1, already_calculated_series), do: {1, already_calculated_series}

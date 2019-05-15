@@ -2,7 +2,7 @@ defmodule FibonacciTest do
   use ExUnit.Case
   doctest Fibonacci
 
-  setup_all do
+  setup do
     {:ok, _pid} = Fibonacci.start_link(nil)
     :ok
   end
