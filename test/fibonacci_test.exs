@@ -2,12 +2,17 @@ defmodule FibonacciTest do
   use ExUnit.Case
   doctest Fibonacci
 
-  test "greets the world" do
+  setup_all do
+    {:ok, _pid} = Fibonacci.start_link(nil)
+    :ok
+  end
+
+  test "greets the world", _context do
     assert Fibonacci.hello() == :world
   end
 
-  @tag :pending
-  test "Fibnoacci.calculate/1 should give the correct result" do
+  # @tag :pending
+  test "Fibnoacci.calculate/1 should give the correct result", _context do
     assert Fibonacci.calculate(0) == {:ok, 0}
     assert Fibonacci.calculate(2) == {:ok, 1}
     assert Fibonacci.calculate(1) == {:ok, 1}
