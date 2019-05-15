@@ -42,7 +42,7 @@ defmodule Fibonacci do
 
     case Map.get(state.series, key) do
       nil ->
-        {val, x_series} = extend_series(state.series, key)
+        {val, x_series} = extend_series(key, state.series)
 
         IO.puts("After Series Extension calculate Value for key : #{key} is #{val}")
         IO.inspect(x_series)
@@ -53,7 +53,7 @@ defmodule Fibonacci do
 
         {:reply, {:ok, val},
          %{
-           series: x_series,
+           series: Map.merge(state.series, x_series),
            history: [{key, val} | state.history],
            history_count: new_history_count
          }}
@@ -91,7 +91,7 @@ defmodule Fibonacci do
     )
   end
 
-  def extend_series(0, second_last, _last, _, extension), do: {second_last, extension}
+  def extend_series(0, _second_last, last, _, extension), do: {last, extension}
 
   def extend_series(extra_to_calculate, second_last, last, max_calculated, extension) do
     next_elt_of_series = second_last + last
