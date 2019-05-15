@@ -28,6 +28,17 @@ defmodule Fibonacci do
     GenServer.call(__MODULE__, {:get, x})
   end
 
+  def calculate(x) when is_list(x) do
+    list =
+      x
+      |> Enum.map(fn x ->
+        {:ok, val} = calculate(x)
+        val
+      end)
+
+    {:ok, list}
+  end
+
   def calculate(_x), do: {:error, :invalid_argumenet}
 
   @impl true
