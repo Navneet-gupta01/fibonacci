@@ -45,6 +45,10 @@ defmodule Fibonacci do
     GenServer.call(__MODULE__, :history)
   end
 
+  def history_count do
+    GenServer.call(__MODULE__, :history_count)
+  end
+
   @impl true
   def init(_) do
     {:ok, %{series: %{0 => 0, 1 => 1}, history: [], history_count: %{}}}
@@ -90,6 +94,10 @@ defmodule Fibonacci do
   @impl true
   def handle_call(:history, _from, %{history: history} = state),
     do: {:reply, {:ok, Enum.reverse(history)}, state}
+
+  @impl true
+  def handle_call(:history_count, _from, %{history_count: history_count} = state),
+    do: {:reply, {:ok, history_count, state}}
 
   def extend_series(0, already_calculated_series), do: {0, already_calculated_series}
   def extend_series(1, already_calculated_series), do: {1, already_calculated_series}

@@ -63,7 +63,7 @@ defmodule FibonacciTest do
               ]}
   end
 
-  @tag :pending
+  # @tag :pending
   test "Fibonacci.history_count/0 should return map of %{input => count}" do
     a = [0, 1, 2, 0, 3, 1, 2, 3, 0, 0, 1, 100, 100, 12, 13, 15, 12]
     a |> Enum.each(&Fibonacci.calculate(&1))
