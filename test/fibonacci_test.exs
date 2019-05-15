@@ -10,10 +10,6 @@ defmodule FibonacciTest do
     :ok
   end
 
-  test "greets the world", _context do
-    assert Fibonacci.hello() == :world
-  end
-
   # @tag :pending
   test "Fibnoacci.calculate/1 should give the correct result", _context do
     assert Fibonacci.calculate(0) == {:ok, 0}

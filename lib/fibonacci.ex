@@ -7,19 +7,6 @@ defmodule Fibonacci do
   Documentation for Fibonacci.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Fibonacci.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
-
   def start_link(_) do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)
   end
@@ -56,15 +43,9 @@ defmodule Fibonacci do
 
   @impl true
   def handle_call({:get, key}, _from, state) do
-    IO.puts("=========handle_call/3 for key: #{key}")
-    # IO.inspect(state)
-
     case Map.get(state.series, key) do
       nil ->
         {val, x_series} = extend_series(key, state.series)
-
-        IO.puts("After Series Extension calculate Value for key : #{key} is #{val}")
-        # IO.inspect(x_series)
 
         {_, new_history_count} =
           state.history_count
