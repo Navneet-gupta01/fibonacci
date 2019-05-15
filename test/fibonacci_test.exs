@@ -34,7 +34,7 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate([0, 1, 100]) == {:ok, [0, 1, 354_224_848_179_261_915_075]}
   end
 
-  @tag :pending
+  # @tag :pending
   test "Fibonacci.calculate/1 should fail for non-integer arguments" do
     assert Fibonacci.calculate("test") == {:error, :invalid_argument}
   end
