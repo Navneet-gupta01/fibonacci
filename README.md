@@ -51,10 +51,10 @@ curl http://localhost:4000/fibonacci/history/count
 {"resp":{"0":1,"1":2,"2":1,"3":3,"4":1,"5":1,"6":2,"7":2,"8":1,"9":1,"11":1,"100":1}}
 ```
 
-Assumptions:
-1: history of list is shown one by one. Ex: Fibonacci.calculate([1,2,3]) and then getting history Fibonacci.history() will  give [{1,1}, {2, 1}, {3, 2}]. 
-	It Could be changed if its not desirable like that.
-2. history_count response format given as map cannot be sorted as per requirement by req count, Since elixir Does not map sorting 
+## Assumptions:
+* history of list is shown one by one. Ex: Fibonacci.calculate([1,2,3]) and then getting history Fibonacci.history() will  give [{1,1}, {2, 1}, {3, 2}].   
+	It Could be changed if its not desirable like that.  
+* history_count response format given as map cannot be sorted as per requirement by req count, Since elixir Does not map sorting   
 
 
 
