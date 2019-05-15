@@ -51,7 +51,7 @@ defmodule Fibonacci do
           state.history_count
           |> Map.get_and_update(key, &Updater.update(&1))
 
-        {:reply, val,
+        {:reply, {:ok, val},
          %{
            series: x_series,
            history: [{key, val} | state.history],
@@ -63,7 +63,7 @@ defmodule Fibonacci do
           state.history_count
           |> Map.get_and_update(key, &Updater.update(&1))
 
-        {:reply, value,
+        {:reply, {:ok, value},
          %{
            series: state.series,
            history: [{key, value} | state.history],
