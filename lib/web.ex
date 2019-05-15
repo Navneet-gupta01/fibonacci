@@ -40,6 +40,18 @@ defmodule Web do
     send_resp(conn, 200, Jason.encode!(%{resp: resp}))
   end
 
+  get("/fibonacci/history") do
+    {:ok, resp} = Fibonacci.history()
+
+    send_resp(conn, 200, Jason.encode!(%{resp: resp |> Enum.into(%{})}))
+  end
+
+  get("/fibonacci/history/count") do
+    {:ok, resp} = Fibonacci.history_count()
+
+    send_resp(conn, 200, Jason.encode!(%{resp: resp}))
+  end
+
   match _ do
     Plug.Conn.send_resp(conn, 404, "not found")
   end

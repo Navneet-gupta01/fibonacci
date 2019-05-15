@@ -2,6 +2,14 @@ defmodule FibonacciTest do
   use ExUnit.Case
   doctest Fibonacci
 
+  # setup to reset any state build up during each test
+  setup do
+    Application.stop(:fibonacci)
+    Application.start(:fibonacci)
+
+    :ok
+  end
+
   test "greets the world", _context do
     assert Fibonacci.hello() == :world
   end
@@ -34,8 +42,7 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate("test") == {:error, :invalid_argument}
   end
 
-  # below test case will work in isolation, Other wise it will depend on other test case results which is non-deterministic
-  @tag :pending
+  # @tag :pending
   test "Fibonacci.history/0 should return already asked numbers ordered from first to last" do
     [1, 2, 3, 4, 5, 6, 8, 9, 0, 1, 2, 0, 1]
     |> Fibonacci.calculate()
@@ -59,8 +66,7 @@ defmodule FibonacciTest do
               ]}
   end
 
-  # below test case will work in isolation, Other wise it will depend on other test case results which is non-deterministic
-  @tag :pending
+  # @tag :pending
   test "Fibonacci.history_count/0 should return map of %{input => count}" do
     a = [0, 1, 2, 0, 3, 1, 2, 3, 0, 0, 1, 100, 100, 12, 13, 15, 12]
     a |> Fibonacci.calculate()
