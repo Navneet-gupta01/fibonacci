@@ -11,19 +11,27 @@ defmodule Fibonacci do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)
   end
 
+  def calculate(x) when is_integer(x) and x < 0, do: {:error, :invalid_argument}
+
   def calculate(x) when is_integer(x) do
     GenServer.call(__MODULE__, {:get, x})
   end
 
   def calculate(x) when is_list(x) do
-    list =
-      x
-      |> Enum.map(fn x ->
-        {:ok, val} = calculate(x)
-        val
-      end)
+    case Enum.all?(x, fn k -> k > 0 end) do
+      true ->
+        list =
+          x
+          |> Enum.map(fn x ->
+            {:ok, val} = calculate(x)
+            val
+          end)
 
-    {:ok, list}
+        {:ok, list}
+
+      _ ->
+        {:error, :invalid_argument}
+    end
   end
 
   def calculate(_x), do: {:error, :invalid_argument}

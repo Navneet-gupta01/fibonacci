@@ -22,11 +22,11 @@ defmodule Web do
       |> Map.fetch!("numbers")
       |> String.split(",")
 
-    {:ok, resp} =
+    parsed_numbers =
       case length(numbers) do
         1 ->
           {key, _} = Integer.parse(hd(numbers))
-          Fibonacci.calculate(key)
+          key
 
         _ ->
           numbers
@@ -34,10 +34,12 @@ defmodule Web do
             {key, _} = Integer.parse(x)
             key
           end)
-          |> Fibonacci.calculate()
       end
 
-    send_resp(conn, 200, Jason.encode!(%{resp: resp}))
+    case Fibonacci.calculate(parsed_numbers) do
+      {:ok, resp} -> send_resp(conn, 200, Jason.encode!(%{resp: resp}))
+      {:error, error} -> send_resp(conn, 400, Jason.encode!(%{error: error}))
+    end
   end
 
   get("/fibonacci/history") do
