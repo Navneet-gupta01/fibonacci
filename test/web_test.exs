@@ -14,4 +14,31 @@ defmodule WebTest do
     assert conn.status == 200
     assert conn.resp_body == %{resp: 2}
   end
+
+  test "calculate_value for multiple valuess" do
+    conn =
+      conn(:get, "/fibonacci?number=3,4,5")
+      |> Web.call(@init)
+
+    assert conn.status == 200
+    assert conn.resp_body == %{resp: [2, 3, 5]}
+  end
+
+  test "history" do
+    conn =
+      conn(:get, "/fibonacci/history")
+      |> Web.call(@init)
+
+    assert conn.status == 200
+    assert conn.resp_body == %{resp: []}
+  end
+
+  test "history_count" do
+    conn =
+      conn(:get, "/fibonacci/history/count")
+      |> Web.call(@init)
+
+    assert conn.status == 200
+    assert conn.resp_body == %{resp: %{}}
+  end
 end
