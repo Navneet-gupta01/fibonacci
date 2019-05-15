@@ -39,7 +39,11 @@ defmodule Fibonacci do
     {:ok, list}
   end
 
-  def calculate(_x), do: {:error, :invalid_argumenet}
+  def calculate(_x), do: {:error, :invalid_argument}
+
+  def history() do
+    GenServer.call(__MODULE__, :history)
+  end
 
   @impl true
   def init(_) do
@@ -82,6 +86,10 @@ defmodule Fibonacci do
          }}
     end
   end
+
+  @impl true
+  def handle_call(:history, _from, %{history: history} = state),
+    do: {:reply, {:ok, history}, state}
 
   def extend_series(0, already_calculated_series), do: {0, already_calculated_series}
   def extend_series(1, already_calculated_series), do: {1, already_calculated_series}

@@ -39,7 +39,7 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate("test") == {:error, :invalid_argument}
   end
 
-  @tag :pending
+  # @tag :pending
   test "Fibonacci.history/0 should return already asked numbers ordered from first to last" do
     [1, 2, 3, 4, 5, 6, 8, 9, 0, 1, 2, 0, 1]
     |> Enum.each(&Fibonacci.calculate(&1))
