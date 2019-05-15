@@ -6,6 +6,7 @@ defmodule FibonacciTest do
     assert Fibonacci.hello() == :world
   end
 
+  @tag :pending
   test "Fibnoacci.calculate/1 should give the correct result" do
     assert Fibonacci.calculate(0) == {:ok, 0}
     assert Fibonacci.calculate(2) == {:ok, 1}
@@ -19,6 +20,7 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate(100) == {:ok, 354_224_848_179_261_915_075}
   end
 
+  @tag :pending
   test "Fibnoacci.calculate/1 with list element should give the correct result" do
     assert Fibonacci.calculate([0, 1, 2]) == {:ok, [0, 1, 1]}
     assert Fibonacci.calculate([0, 3, 5]) == {:ok, [0, 2, 5]}
@@ -27,10 +29,12 @@ defmodule FibonacciTest do
     assert Fibonacci.calculate([0, 1, 100]) == {:ok, [0, 1, 354_224_848_179_261_915_075]}
   end
 
+  @tag :pending
   test "Fibonacci.calculate/1 should fail for non-integer arguments" do
     assert Fibonacci.calculate("test") == {:error, :invalid_argument}
   end
 
+  @tag :pending
   test "Fibonacci.history/0 should return already asked numbers ordered from first to last" do
     [1, 2, 3, 4, 5, 6, 8, 9, 0, 1, 2, 0, 1]
     |> Enum.each(&Fibonacci.calculate(&1))
@@ -54,6 +58,7 @@ defmodule FibonacciTest do
               ]}
   end
 
+  @tag :pending
   test "Fibonacci.history_count/0 should return map of %{input => count}" do
     a = [0, 1, 2, 0, 3, 1, 2, 3, 0, 0, 1, 100, 100, 12, 13, 15, 12]
     a |> Enum.each(&Fibonacci.calculate(&1))
