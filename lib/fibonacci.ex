@@ -97,7 +97,7 @@ defmodule Fibonacci do
 
   @impl true
   def handle_call(:history_count, _from, %{history_count: history_count} = state),
-    do: {:reply, {:ok, history_count, state}}
+    do: {:reply, {:ok, history_count}, state}
 
   def extend_series(0, already_calculated_series), do: {0, already_calculated_series}
   def extend_series(1, already_calculated_series), do: {1, already_calculated_series}
