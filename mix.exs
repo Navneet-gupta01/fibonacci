@@ -22,9 +22,8 @@ defmodule Fibonacci.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:poolboy, "~> 1.5"},
-      {:cowboy, "~> 2.6"},
-      {:plug, "~> 1.8"}
+      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.1"}
     ]
   end
 end

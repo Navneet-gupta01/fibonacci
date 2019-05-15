@@ -2,7 +2,8 @@ defmodule Fibonacci.Supervisor do
   def start_link do
     Supervisor.start_link(
       [
-        Fibonacci
+        Fibonacci,
+        Web
       ],
       strategy: :one_for_one
     )
