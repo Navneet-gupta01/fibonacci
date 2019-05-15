@@ -8,20 +8,20 @@ defmodule WebTest do
 
   test "calculate_value" do
     conn =
-      conn(:get, "/fibonacci?number=3")
+      conn(:get, "/fibonacci?numbers=3")
       |> Web.call(@init)
 
     assert conn.status == 200
-    assert conn.resp_body == %{resp: 2}
+    assert conn.resp_body == Jason.encode!(%{resp: 2})
   end
 
   test "calculate_value for multiple valuess" do
     conn =
-      conn(:get, "/fibonacci?number=3,4,5")
+      conn(:get, "/fibonacci?numbers=3,4,5")
       |> Web.call(@init)
 
     assert conn.status == 200
-    assert conn.resp_body == %{resp: [2, 3, 5]}
+    assert conn.resp_body == Jason.encode!(%{resp: [2, 3, 5]})
   end
 
   test "history" do
@@ -30,7 +30,7 @@ defmodule WebTest do
       |> Web.call(@init)
 
     assert conn.status == 200
-    assert conn.resp_body == %{resp: []}
+    assert conn.resp_body == Jason.encode!(%{resp: []})
   end
 
   test "history_count" do
@@ -39,6 +39,6 @@ defmodule WebTest do
       |> Web.call(@init)
 
     assert conn.status == 200
-    assert conn.resp_body == %{resp: %{}}
+    assert conn.resp_body == Jason.encode!(%{resp: %{}})
   end
 end

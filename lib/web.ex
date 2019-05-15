@@ -14,6 +14,32 @@ defmodule Web do
 
   get("/", do: send_resp(conn, 200, "Great Router Configured"))
 
+  get("/fibonacci") do
+    conn = Plug.Conn.fetch_query_params(conn)
+
+    numbers =
+      conn.params
+      |> Map.fetch!("numbers")
+      |> String.split(",")
+
+    {:ok, resp} =
+      case length(numbers) do
+        1 ->
+          {key, _} = Integer.parse(hd(numbers))
+          Fibonacci.calculate(key)
+
+        _ ->
+          numbers
+          |> Enum.map(fn x ->
+            {key, _} = Integer.parse(x)
+            key
+          end)
+          |> Fibonacci.calculate()
+      end
+
+    send_resp(conn, 200, Jason.encode!(%{resp: resp}))
+  end
+
   match _ do
     Plug.Conn.send_resp(conn, 404, "not found")
   end
