@@ -18,7 +18,7 @@ defmodule Fibonacci do
   end
 
   def calculate(x) when is_list(x) do
-    case Enum.all?(x, fn k -> k > 0 end) do
+    case Enum.all?(x, fn k -> k >= 0 end) do
       true ->
         list =
           x

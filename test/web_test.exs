@@ -30,9 +30,8 @@ defmodule WebTest do
       |> Web.call(@init)
 
     assert conn.status == 200
-
     %{"resp" => resp} = Jason.decode!(conn.resp_body)
-    assert map_size(resp) >= 0
+    assert length(resp) >= 0
   end
 
   test "history_count" do
@@ -43,5 +42,15 @@ defmodule WebTest do
     assert conn.status == 200
     %{"resp" => resp} = Jason.decode!(conn.resp_body)
     assert map_size(resp) >= 0
+  end
+
+  test "history_count_sorted" do
+    conn =
+      conn(:get, "/fibonacci/history/count2")
+      |> Web.call(@init)
+
+    assert conn.status == 200
+    %{"resp" => resp} = Jason.decode!(conn.resp_body)
+    assert length(resp) >= 0
   end
 end
