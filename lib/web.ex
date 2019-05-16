@@ -52,6 +52,17 @@ defmodule Web do
     send_resp(conn, 200, Jason.encode!(%{resp: resp}))
   end
 
+  get("/fibonacci/history/count2") do
+    {:ok, resp} = Fibonacci.history_count()
+
+    sorted =
+      resp
+      |> Enum.reduce([], fn {key, value}, acc -> [%{key => value} | acc] end)
+      |> Enum.sort(fn fst, snd -> Map.values(fst) > Map.values(snd) end)
+
+    send_resp(conn, 200, Jason.encode!(%{resp: sorted}))
+  end
+
   match _ do
     Plug.Conn.send_resp(conn, 404, "not found")
   end
