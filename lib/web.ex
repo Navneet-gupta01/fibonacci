@@ -24,6 +24,9 @@ defmodule Web do
 
     parsed_numbers =
       case length(numbers) do
+        0 ->
+          "No Argument Specified"
+
         1 ->
           {key, _} = Integer.parse(hd(numbers))
           key
