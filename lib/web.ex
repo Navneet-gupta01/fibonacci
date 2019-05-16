@@ -1,5 +1,6 @@
 defmodule Web do
   use Plug.Router
+  use Plug.ErrorHandler
 
   plug(:match)
   plug(:dispatch)
@@ -22,11 +23,8 @@ defmodule Web do
       |> Map.fetch!("numbers")
       |> String.split(",")
 
-    parsed_numbers =
+    {:ok, resp} =
       case length(numbers) do
-        0 ->
-          "No Argument Specified"
-
         1 ->
           {key, _} = Integer.parse(hd(numbers))
           key
@@ -38,11 +36,9 @@ defmodule Web do
             key
           end)
       end
+      |> Fibonacci.calculate()
 
-    case Fibonacci.calculate(parsed_numbers) do
-      {:ok, resp} -> send_resp(conn, 200, Jason.encode!(%{resp: resp}))
-      {:error, error} -> send_resp(conn, 400, Jason.encode!(%{error: error}))
-    end
+    send_resp(conn, 200, Jason.encode!(%{resp: resp}))
   end
 
   get("/fibonacci/history") do
@@ -59,5 +55,17 @@ defmodule Web do
 
   match _ do
     Plug.Conn.send_resp(conn, 404, "not found")
+  end
+
+  def handle_errors(conn, %{kind: _kind, reason: %KeyError{key: key}, stack: _stack}) do
+    send_resp(conn, 400, Jason.encode!(%{error: "Key: #{key} not found"}))
+  end
+
+  def handle_errors(conn, %{kind: :error, reason: _reason, stack: _stack}) do
+    send_resp(conn, 400, Jason.encode!(%{error: "Invalid Argument"}))
+  end
+
+  def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
+    send_resp(conn, conn.status, Jason.encode!(%{error: "Something went wrong"}))
   end
 end
