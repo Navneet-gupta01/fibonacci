@@ -43,8 +43,7 @@ defmodule Web do
 
   get("/fibonacci/history") do
     {:ok, resp} = Fibonacci.history()
-
-    send_resp(conn, 200, Jason.encode!(%{resp: resp |> Enum.into(%{})}))
+    send_resp(conn, 200, Jason.encode!(%{resp: resp |> Enum.map(&Tuple.to_list(&1))}))
   end
 
   get("/fibonacci/history/count") do
