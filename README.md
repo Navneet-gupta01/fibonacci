@@ -27,6 +27,8 @@ Playing With Server
    {:ok, [{3, 2}, {5, 5}, {3, 2}, {100, 354224848179261915075}, {0, 0}, {1, 1}, {2, 1}, {3, 2}, {4, 3}]}
    iex> Fibonacci.history_count()
    {:ok, %{0 => 1, 1 => 1, 2 => 1, 3 => 3, 4 => 1, 5 => 1, 100 => 1}}
+   # Since above history_count returns Map and elixir map doesnot support ordering by value, It is not sorted.
+   # For Sorted response see the Http Api: http://localhost:4000/fibonacci/history/count2 which gives result in Sorted List of map of %{request => count}.  
 ```
 
 ## Running without repl
