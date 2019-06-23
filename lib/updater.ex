@@ -25,6 +25,7 @@ defmodule Updater do
       {:error, :invalid_argument}
 
   """
+  @spec update(value: term) :: {term, term} | {:error, :invalid_argument}
   def update(value) when is_nil(value), do: {value, 1}
 
   def update(value) when is_integer(value) do
