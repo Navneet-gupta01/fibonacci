@@ -23,7 +23,8 @@ defmodule Fibonacci.MixProject do
   defp deps do
     [
       {:plug_cowboy, "~> 2.0"},
-      {:jason, "~> 1.1"}
+      {:jason, "~> 1.1"},
+      {:dialyxir, "~> 1.0.0-rc.6", only: [:dev], runtime: false}
     ]
   end
 end
